@@ -2,6 +2,8 @@
 This is a personal tool i've used to animate sprites and create spritesheets.
 Note that there are problems and not-well-planned things, but it works like a charm, it saves a lot of time.
 
+**<a href ='https://andrewdevcup.github.io/SpriteStudio/index.html'>Try it!</a>**
+
 ## Things it has
 - Create spritesheets from individual sprites, automatically adds them to a spritesheet which you can resize, it also supports multiple spritesheets.
 - Exports sprites, adjust offsets and create animations frame by frame with looping.
