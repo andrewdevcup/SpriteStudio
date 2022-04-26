@@ -77,6 +77,6 @@ Clears the current animation and sets the current sprite frame to 0, it doesn't 
 <br>
 When you're done, click on *Save Frames* and *Save Anims* it'll export the new csv file and the json animation file.
 
-## Known bugs
+## Known issues
 - When creating a spritesheet, the canvas is actually 2048x2048 but the texts are at 1024x1024 and when resizing it, it sets the canvas to it's values. It's not damaging since your sprites are redrawn.
 - Sometimes when animating, if a frame corresponds to a spritesheet that doesn't exist, the engine can stop working, and won't respond, make sure to save your data before testing animations.
