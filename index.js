@@ -68,9 +68,11 @@ function onDeviceReady() {
 	//Background
 	bg = new b5.RectActor;
 	bg.setSize(1600, 900);
-	bg.fill_style = 'white';
+	bg.fill_style = 'transparent';
 	scene.addActor(bg);
-
+	
+	app.setBackgroundColor('white');
+	app.clear_canvas = true;
 	//Page
 	page = new b5.Actor;
 	page.setSize(scene.w, scene.h-page.y)
@@ -550,7 +552,6 @@ function onDeviceReady() {
 				var navactor = createNavigationView(710,710);
 				navactor.setPosition(0,-30)
 				page.addActor(navactor);
-				
 				//Label
 				var txtinf = new b5.LabelActor
 				txtinf.fill_style = 'black'
@@ -570,6 +571,10 @@ function onDeviceReady() {
 				yl.setSize(1,2048);
 				yl.fill_style = "#0a0";
 				navactor.view.addActor(yl);
+				
+				xl.onTick = function() {
+					this.visible = yl.visible = navactor.fill_style != 'transparent'
+				}
 				
 				//Sprite 
 				sprite = new b5.Actor;
@@ -597,6 +602,7 @@ function onDeviceReady() {
 				nat.scale = 1.3;
 				navactor.addActor(nat);
 				nat.onTick = function() {
+					this.visible = xl.visible
 					this.text = "Current Anim: "+ sprite.current_anim+"\n"+
 					"Speed: "+ sprite.frame_speed+"fps\n"+
 					"Bitmap Index: " + sprite.current_bitmap+"\n"+
@@ -792,7 +798,7 @@ function onDeviceReady() {
 				flv1.line_height = 34;
 				flv1.onTick = function() {
 					if(sprite.atlas) {
-						var f = sprite.atlas.getFrame(Math.round(sprite.current_frame));
+						var f = sprite.atlas.getFrame( sprite.anim_frames ? sprite.anim_frames[Math.round(sprite.current_frame)] : Math.round(sprite.current_frame));
 						if(f) this.text =
 						  f.x+"\n"+
 						  f.w+ "\n"+
@@ -897,6 +903,34 @@ function onDeviceReady() {
 				clab.onBeginTouch = ()=>{
 					sprite.anim_frames = null,
 					sprite.current_frame = 0;
+				}
+				
+				//Extra
+				
+				var dcs = new OffscreenCanvas(710,710).getContext('2d'),
+				frame = {
+					x: 445,
+					y: 65,
+					w: 710,
+					h: 710
+				}
+				
+				
+				var cap = createButton('Capture Anim', 180,60);
+				cap.actors[0]._scale = 1.2;
+				cap.setPosition(470,370);
+				page.addActor(cap);
+				cap.onBeginTouch = ()=>{
+					var u = setInterval(m => {
+						app.display.clear();
+						sprite.draw();
+						dcs.clearRect(0,0,710,710);
+						dcs.drawImage(app.display.context.canvas,frame.x,frame.y,frame.w,frame.h,0,0,710,710);
+						downloadCanvas(dcs.canvas,'frame-'+Math.round(sprite.current_frame)+'.png');
+						
+						if(sprite.current_frame < sprite.anim_frames.length) sprite.current_frame++;
+						if(sprite.current_frame >= sprite.anim_frames.length) clearInterval(u), alert('Done');
+					},100);
 				}
 				
 				break;
@@ -1135,7 +1169,7 @@ function onDeviceReady() {
 
 		view.view = new b5.Actor;
 		view.addActor(view.view)
-		view.onWheel = function(e) {
+		view.onWheel = function(e,b) {
 			var d = Math.sign(e.deltaY)
 			this.view._scale -= d * 0.1 * this.view._scale
 			this.view._scale < 0.1 && (this.view._scale = 0.1)
@@ -1155,7 +1189,7 @@ function onDeviceReady() {
 		view.onEndTouch = function (p) {
 			this.move2 = false
 		}
-		view.fill_style = 'darkgray'
+		view.fill_style = 'lightgray'
 		return view
 	}
 
