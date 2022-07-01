@@ -396,7 +396,7 @@ function onDeviceReady() {
 				cwlb._scale = 1.6;
 				cwlb.onWheel = function(e) {
 					var d = Math.sign(-e.deltaY)
-					CanvasWIndex += d;
+					CanvasWIndex   d;
 					
 					CanvasWIndex = b5.Maths.cap(CanvasWIndex,0,CanvasSizes.length-1);
 					
@@ -617,8 +617,8 @@ function onDeviceReady() {
 					if(page.active && sprite.atlas) {
 						var f = sprite.getFrame(Math.round(sprite.current_frame));
 						if(f) {
-							f.oy += e.key == "ArrowUp" ? 1 : e.key == "ArrowDown" ? -1 : 0;
-							f.ox += e.key == "ArrowLeft" ? 1 : e.key == "ArrowRight" ? -1 : 0;
+							f.oy += e.key == "ArrowUp" ? 1 : e.key == "ArrowDown" ? -.5 : 0;
+							f.ox += e.key == "ArrowLeft" ? 1 : e.key == "ArrowRight" ? -.5 : 0;
 						}
 						sprite.dirty();
 					}
