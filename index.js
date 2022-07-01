@@ -320,11 +320,12 @@ function onDeviceReady() {
 
 				savCFbtn.onBeginTouch = function () {
 					//Test
-					var n = prompt('Save Frame Table As:', 'SpriteAtlasTexture_sheetName');
-				  n && downloadText(framesToCsv(drawnSprites), n + '-' + INDEX + '.csv');
-				  
-				  n = prompt('Save SpriteSheet As:', 'SpriteAtlasTexture_sheetName');
-				  n && downloadCanvas(proc.image, n + '-'+INDEX+'.png');
+					var n = prompt('Save Sheet and Frames as:', 'SpriteAtlasTexture_sheetName');
+				 	if(n) {
+						n = n.replace(/\.png|\.csv/g,"");
+						downloadText(framesToCsv(drawnSprites), n + '-' + INDEX + '.csv');
+					        downloadCanvas(proc.image, n + '-'+INDEX+'.png');
+					}
 				}
 				var savCFlab = new b5.LabelActor
 				savCFlab.text = 'Save Sheet & Frames'
