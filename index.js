@@ -396,7 +396,7 @@ function onDeviceReady() {
 				cwlb._scale = 1.6;
 				cwlb.onWheel = function(e) {
 					var d = Math.sign(-e.deltaY)
-					CanvasWIndex   d;
+					CanvasWIndex +=d;
 					
 					CanvasWIndex = b5.Maths.cap(CanvasWIndex,0,CanvasSizes.length-1);
 					
