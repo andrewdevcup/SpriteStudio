@@ -617,8 +617,8 @@ function onDeviceReady() {
 					if(page.active && sprite.atlas) {
 						var f = sprite.getFrame(Math.round(sprite.current_frame));
 						if(f) {
-							f.oy += e.key == "ArrowUp" ? 1 : e.key == "ArrowDown" ? -.5 : 0;
-							f.ox += e.key == "ArrowLeft" ? 1 : e.key == "ArrowRight" ? -.5 : 0;
+							f.oy += e.key == "ArrowUp" ? .5 : e.key == "ArrowDown" ? -.5 : 0;
+							f.ox += e.key == "ArrowLeft" ? .5 : e.key == "ArrowRight" ? -.5 : 0;
 						}
 						sprite.dirty();
 					}
