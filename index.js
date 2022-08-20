@@ -816,7 +816,7 @@ function onDeviceReady() {
 				flv2.line_height = 34;
 				flv2.onTick = function() {
 					if(sprite.atlas) {
-						var f = sprite.atlas.getFrame(Math.round(sprite.current_frame));
+						var f = sprite.atlas.getFrame( sprite.anim_frames ? sprite.anim_frames[Math.round(sprite.current_frame)] : Math.round(sprite.current_frame));
 						if(f) this.text =
 						  f.y+"\n"+
 						  f.h+ "\n"+
